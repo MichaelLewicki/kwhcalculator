@@ -63,6 +63,8 @@ public class AuthControlador {
             return new ResponseEntity<>("El nombre de usuario ya se encuentra registrado", HttpStatus.BAD_REQUEST);
         } else if (usuarioRepositorio.existsByEmail(registroUsuarioDTO.getEmail())) {
             return new ResponseEntity<>("El email ingresado ya se encuentra registrado", HttpStatus.BAD_REQUEST);
+        } else if (registroUsuarioDTO.getPassword().equals("")) {
+            return new ResponseEntity<>("La contraseña ingresada no puede estar en blanco", HttpStatus.BAD_REQUEST);
         }
         Usuario usuario = new Usuario();
         usuario.setUsername(registroUsuarioDTO.getUsername());
