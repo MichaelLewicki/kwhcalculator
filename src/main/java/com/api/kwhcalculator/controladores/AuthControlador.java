@@ -51,7 +51,7 @@ public class AuthControlador {
         //obtenemos el token del JwtProvider
         String token = jwtTokenProvider.generarToken(authentication);
         //return new ResponseEntity<>("Ha logrado iniciar sesión exitosamente", HttpStatus.OK); esto era así antes de implementar JWT
-        return ResponseEntity.ok(new JWTAuthResponseDTO(token));
+        return ResponseEntity.ok(new JWTAuthResponseDTO(loginDTO.getUsernameOrEmail(),token));
     }
 
     //método para registrar un usuario (se le otorgará el rol ADMIN)

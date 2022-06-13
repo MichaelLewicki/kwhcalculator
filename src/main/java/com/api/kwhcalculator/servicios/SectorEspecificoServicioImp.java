@@ -1,21 +1,17 @@
 package com.api.kwhcalculator.servicios;
 
 import com.api.kwhcalculator.dto.SectorEspecificoDTO;
-import com.api.kwhcalculator.dto.SectorGeneralDTO;
-import com.api.kwhcalculator.excepciones.ApiRestAppException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
 import com.api.kwhcalculator.modelos.SectorEspecifico;
 import com.api.kwhcalculator.modelos.SectorGeneral;
-import com.api.kwhcalculator.modelos.Usuario;
 import com.api.kwhcalculator.repositorios.SectorEspecificoRepositorio;
 import com.api.kwhcalculator.repositorios.SectorGeneralRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
@@ -48,8 +44,13 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
     }
 
     @Override
-    public List<SectorEspecificoDTO> obtenerSecEspecificosPorSecGeneralId(long idSectorEspecifico) {
-        return null;
+    public List<SectorEspecificoDTO> obtenerSecEspecificosPorSecGeneralId(long idSectorGeneral) {
+        List<SectorEspecifico> sectoresEspecifico = sectorEspecificoRepositorio.findBySectorGeneralId(idSectorGeneral);
+        if (sectoresEspecifico.isEmpty()) {
+            throw new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral);
+        }
+        //retornar una lista de entidades que llegaron de la base de datos mapeadas a DTO
+        return sectoresEspecifico.stream().map(sectorEspecifico -> mapearDTO(sectorEspecifico)).collect(Collectors.toList());
     }
 
     @Override

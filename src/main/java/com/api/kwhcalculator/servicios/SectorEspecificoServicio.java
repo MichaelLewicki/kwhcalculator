@@ -10,7 +10,7 @@ public interface SectorEspecificoServicio {
 
     SectorEspecificoDTO crearSectorEspecifico(long idSectorGeneral, SectorEspecificoDTO sectorEspecificoDTO);
 
-    List<SectorEspecificoDTO> obtenerSecEspecificosPorSecGeneralId(long idSectorEspecifico);
+    List<SectorEspecificoDTO> obtenerSecEspecificosPorSecGeneralId(long idSectorGeneral);
 
     SectorEspecificoDTO obtenerSecEspecificoPorSecGeneralIdSecEspecificoId(long idSectorGeneral, long idSectorEspecifico);
 

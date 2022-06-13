@@ -2,6 +2,7 @@ package com.api.kwhcalculator.seguridad;
 
 public class JWTAuthResponseDTO {
 
+    private String usernameOrEmail;
     private String tokenDeAcceso;
     private String tipoDeToken = "Bearer";
 
@@ -12,9 +13,17 @@ public class JWTAuthResponseDTO {
         this.tokenDeAcceso = tokenDeAcceso;
     }
 
-    public JWTAuthResponseDTO(String tokenDeAcceso, String tipoDeToken) {
+    public JWTAuthResponseDTO(String usernameOrEmail, String tokenDeAcceso) {
+        this.usernameOrEmail = usernameOrEmail;
         this.tokenDeAcceso = tokenDeAcceso;
-        this.tipoDeToken = tipoDeToken;
+    }
+
+    public String getUsernameOrEmail() {
+        return usernameOrEmail;
+    }
+
+    public void setUsernameOrEmail(String usernameOrEmail) {
+        this.usernameOrEmail = usernameOrEmail;
     }
 
     public String getTokenDeAcceso() {
