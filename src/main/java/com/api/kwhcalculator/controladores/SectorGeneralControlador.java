@@ -49,7 +49,7 @@ public class SectorGeneralControlador {
     }
 
     @DeleteMapping("/sectoresgenerales/{idSectorGeneral}")
-    public ResponseEntity<String> eliminarComentario(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
+    public ResponseEntity<String> eliminarSectorGeneral(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
         sectorGeneralServicio.eliminarSectorGeneral(idUsuario, idSectorGeneral);
         return new ResponseEntity<>("Sector general eliminado exitosamente", HttpStatus.OK);
     }

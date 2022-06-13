@@ -1,13 +1,16 @@
 package com.api.kwhcalculator.servicios;
 
 import com.api.kwhcalculator.dto.SectorEspecificoDTO;
+import com.api.kwhcalculator.excepciones.ApiRestAppException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
 import com.api.kwhcalculator.modelos.SectorEspecifico;
 import com.api.kwhcalculator.modelos.SectorGeneral;
+import com.api.kwhcalculator.modelos.Usuario;
 import com.api.kwhcalculator.repositorios.SectorEspecificoRepositorio;
 import com.api.kwhcalculator.repositorios.SectorGeneralRepositorio;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -55,17 +58,52 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
 
     @Override
     public SectorEspecificoDTO obtenerSecEspecificoPorSecGeneralIdSecEspecificoId(long idSectorGeneral, long idSectorEspecifico) {
-        return null;
+        //buscar en la base de datos
+        SectorGeneral sectorGeneral = sectorGeneralRepositorio.findById(idSectorGeneral)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral));
+        SectorEspecifico sectorEspecifico = sectorEspecificoRepositorio.findById(idSectorEspecifico)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorEspecifico", "idSectorEspecifico", idSectorEspecifico));
+        //si los IDs no coinciden, se lanzará una excepción
+        if(!sectorEspecifico.getSectorGeneral().getId().equals(sectorGeneral.getId())) {
+            throw new ApiRestAppException(HttpStatus.BAD_REQUEST, "El sector especifico no pertenece a este sector general");
+        }
+        return mapearDTO(sectorEspecifico);
     }
 
     @Override
     public SectorEspecificoDTO modificarSectorEspecifico(long idSectorGeneral, long idSectorEspecifico, SectorEspecificoDTO sectorEspecificoDTO) {
-        return null;
+        //buscar en la base de datos
+        SectorGeneral sectorGeneral = sectorGeneralRepositorio.findById(idSectorGeneral)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral));
+        SectorEspecifico sectorEspecifico = sectorEspecificoRepositorio.findById(idSectorEspecifico)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorEspecifico", "idSectorEspecifico", idSectorEspecifico));
+        //si los IDs no coinciden, se lanzará una excepción
+        if(!sectorEspecifico.getSectorGeneral().getId().equals(sectorGeneral.getId())) {
+            throw new ApiRestAppException(HttpStatus.BAD_REQUEST, "El sector especifico no pertenece a este sector general");
+        }
+        //modificar atributos
+        sectorEspecifico.setNomSectorEspecifico(sectorEspecificoDTO.getNomSectorEspecifico());
+        sectorEspecifico.setMtrsCuadrados(sectorEspecificoDTO.getMtrsCuadrados());
+        sectorEspecifico.setTotalConsumoW(sectorEspecificoDTO.getTotalConsumoW());
+        sectorEspecifico.setTotalPesos(sectorEspecificoDTO.getTotalPesos());
+        //guardar los cambios en la BD
+        SectorEspecifico sectorEspecificoActualizado = sectorEspecificoRepositorio.save(sectorEspecifico);
+        //devolver entidad como objeto de trasferencia
+        return mapearDTO(sectorEspecificoActualizado);
     }
 
     @Override
     public void eliminarSectorEspecifico(long idSectorGeneral, long idSectorEspecifico) {
-
+        //buscar en la base de datos
+        SectorGeneral sectorGeneral = sectorGeneralRepositorio.findById(idSectorGeneral)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral));
+        SectorEspecifico sectorEspecifico = sectorEspecificoRepositorio.findById(idSectorEspecifico)
+                .orElseThrow(() -> new ResourceNotFoundException("SectorEspecifico", "idSectorEspecifico", idSectorEspecifico));
+        //si los IDs no coinciden, se lanzará una excepción
+        if(!sectorEspecifico.getSectorGeneral().getId().equals(sectorGeneral.getId())) {
+            throw new ApiRestAppException(HttpStatus.BAD_REQUEST, "El sector especifico no pertenece a este sector general");
+        }
+        sectorEspecificoRepositorio.delete(sectorEspecifico);
     }
 
     //Este método convierte de DTO a entidad

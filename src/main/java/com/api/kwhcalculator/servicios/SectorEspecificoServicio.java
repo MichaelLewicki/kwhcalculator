@@ -1,8 +1,6 @@
 package com.api.kwhcalculator.servicios;
 
 import com.api.kwhcalculator.dto.SectorEspecificoDTO;
-import com.api.kwhcalculator.dto.SectorGeneralDTO;
-import com.api.kwhcalculator.modelos.SectorEspecifico;
 
 import java.util.List;
 

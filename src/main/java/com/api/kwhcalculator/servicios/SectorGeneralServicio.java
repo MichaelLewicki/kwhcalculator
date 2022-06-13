@@ -1,8 +1,5 @@
 package com.api.kwhcalculator.servicios;
-
 import com.api.kwhcalculator.dto.SectorGeneralDTO;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 public interface SectorGeneralServicio {
@@ -16,5 +13,4 @@ public interface SectorGeneralServicio {
     SectorGeneralDTO modificarSectorGeneral(long idUsuario, long idSectorGeneral, SectorGeneralDTO sectorGeneralDTO);
 
     void eliminarSectorGeneral(long idUsuario, long idSectorGeneral);
-
 }
