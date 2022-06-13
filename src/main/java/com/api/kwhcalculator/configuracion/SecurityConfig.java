@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationFilter();
     }
 
-    //con esto se obliga a hashear las contraseñas
+    //donde se aplique esto se obliga a hashear las contraseñas, ya que retorna una contraseña hasheada
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()//indicar quien puede realizar peticiones
                 .antMatchers(HttpMethod.GET,"/api/**").permitAll()//todos pueden hacer peticiones GET
                 .antMatchers("/api/auth/**").permitAll()//todos pueden autenticarse
-                .anyRequest().authenticated();//cualquier petición debe estar autenticada
+                .anyRequest().authenticated();//cualquier otra petición debe estar autenticada
                 //esto se quitó para realizar peticiones en Postman con un Token
                 //.and()
                 //.httpBasic();

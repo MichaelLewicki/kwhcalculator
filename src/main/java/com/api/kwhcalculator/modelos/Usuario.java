@@ -27,7 +27,7 @@ public class Usuario {
     private String password;
 
     //Relación mucho a muchos con Rol, ya que cada rol contiene puede contener uno o muchos usuarios y lo mismo inversamente
-    @JoinTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "rol_id", referencedColumnName = "id"))
+    @JoinTable(name = "usuarioRoles", joinColumns = @JoinColumn(name = "idUsuario", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "idRol", referencedColumnName = "id"))
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.REFRESH}) //merge y refresh no generarán nuevos roles, solo añaden el indicado de los que existen a este usuario
     private Set<Rol> roles = new HashSet<>();
 

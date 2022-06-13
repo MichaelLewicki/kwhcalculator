@@ -1,8 +1,10 @@
 package com.api.kwhcalculator.modelos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,22 +12,35 @@ import java.util.Set;
 public class SectorGeneral {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "nomSectorGnral", nullable = false)
     private String nomSectorGnral;
+
+    @Column(name = "valorKwh", nullable = false)
     private double valorKwh;
+    @Column(name = "fechaIngresoValorKwh", nullable = false)
     private LocalDate fechaIngresoValorKwh;
+    @Column(name = "mtrsCuadrados", nullable = true)
     private double mtrsCuadrados; //null
 
     //los atributos que continúan no estoy seguro de si debo mandarlo a la base de datos
+    @Column(name = "totalConsumoW", nullable = true)
     private double totalConsumoW; //null
 
+    @Column(name = "totalPesos", nullable = true)
     private double totalPesos; //null
 
     //muchos sectores gnrales podrán estar en un usuario (fetchType.lazy indica que el usuario se mostrará al cargar esta tabla sólo cuando lo indiquemos)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_usuario", nullable = false)
+    @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
+
+    //esta anotación permite que el json se muestre ordenadamente, sino se producirá una lista gigante de retornos con errores
+    //@JsonBackReference
+    @OneToMany(mappedBy = "sectorGeneral", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<SectorEspecifico> sectoresEspecificos = new HashSet<>();
 
     public SectorGeneral() {
         super();

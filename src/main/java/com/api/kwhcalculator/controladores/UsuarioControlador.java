@@ -13,6 +13,7 @@ import java.util.List;
 
 //requestMapping mapea la url de la api Rest
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/usuarios")
 public class UsuarioControlador {
 

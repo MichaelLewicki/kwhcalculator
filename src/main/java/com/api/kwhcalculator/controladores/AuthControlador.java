@@ -16,15 +16,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
+import javax.validation.Valid;
 import java.util.Collections;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class AuthControlador {
 
@@ -58,7 +56,7 @@ public class AuthControlador {
 
     //método para registrar un usuario (se le otorgará el rol ADMIN)
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
+    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
         if (usuarioRepositorio.existsByUsername(registroUsuarioDTO.getUsername())) {
             return new ResponseEntity<>("El nombre de usuario ya se encuentra registrado", HttpStatus.BAD_REQUEST);
         } else if (usuarioRepositorio.existsByEmail(registroUsuarioDTO.getEmail())) {
