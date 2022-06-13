@@ -23,8 +23,9 @@ public class UsuarioDTO {
     @NotNull(message = "la password ingresada no debe ser nula")
     @Size(min = 6, message = "La contraseña del usuario debería tener al menos 6 carácteres")
     private String password;
+
     //añadiendo este atributo, al hacer una request se nos mostrará una lista de sectores generales asociadas al usuario
-    private Set<SectorGeneral> sectoresGenerales;
+    //private Set<SectorGeneral> sectoresGenerales;
 
     public UsuarioDTO() {
 
@@ -62,6 +63,7 @@ public class UsuarioDTO {
         this.password = password;
     }
 
+    /*
     public Set<SectorGeneral> getSectoresGenerales() {
         return sectoresGenerales;
     }
@@ -69,4 +71,5 @@ public class UsuarioDTO {
     public void setSectoresGenerales(Set<SectorGeneral> sectoresGenerales) {
         this.sectoresGenerales = sectoresGenerales;
     }
+    */
 }

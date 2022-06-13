@@ -57,7 +57,7 @@ public class UsuarioServicioImp implements UsuarioServicio {
 
     //Devolver la lista de usuarios de la BD
     @Override
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public List<UsuarioDTO> obtenerTodosLosUsuarios(int numeroDePagina, int medidaDePagina) {
         Pageable pageable = PageRequest.of(numeroDePagina, medidaDePagina);
         Page<Usuario> usuarios = usuarioRepositorio.findAll(pageable);
@@ -69,7 +69,7 @@ public class UsuarioServicioImp implements UsuarioServicio {
 
     //Devolver un usuario buscándolo por su ID (de no encontrarlo, se tirará la excepcion de recurso no encontrado)
     @Override
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     public UsuarioDTO obtenerUsuarioPorId(long idUsuario) {
         Usuario usuario = usuarioRepositorio.findById(idUsuario)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "idUsuario", idUsuario));

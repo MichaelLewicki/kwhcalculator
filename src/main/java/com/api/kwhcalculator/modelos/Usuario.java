@@ -34,7 +34,7 @@ public class Usuario {
     //Uno a muchos con sector general. Cada sectorGnral ingresado estará contenido en un atributo del usuario que creó este objeto. Set es una lista de sectores
     //cascade = CascadeType.ALL permite que al eliminar un Usuario de la BD, se eliminen igual los sectores y todas las instancias dependientes un usuario
     //orphanRemoval = true elimina la instancia de dirección que no sea encontrada automáticamente (si elimino un sectorGnrl, se elimina el sector de la lista que de sectores del usuario)
-    @JsonBackReference //esta anotación permite que el json se muestre ordenadamente, sino se producirá una lista gigante de retornos con errores
+    //@JsonBackReference //esta anotación permite que el json se muestre ordenadamente, sino se producirá una lista gigante de retornos con errores
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SectorGeneral> sectoresGenerales = new HashSet<>();
 

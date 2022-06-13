@@ -42,6 +42,8 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
                 .orElseThrow(() -> new ResourceNotFoundException("Usuario", "idUsuario", idUsuario));
         //Asignar usuario al Sector General
         sectorGeneral.setUsuario(usuario);
+        //Asignar fecha del valor del Kwh
+        sectorGeneral.setFechaIngresoValorKwh(LocalDate.now());
         //guardar sector
         SectorGeneral nuevoSectorGeneral = sectorGeneralRepositorio.save(sectorGeneral);
         return mapearDTO(nuevoSectorGeneral);
@@ -117,8 +119,6 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
     private SectorGeneral mapearEntidad (SectorGeneralDTO sectorGeneralDTO) {
         //establecer los valores del objeto de transferencia (DTO) a la entidad (SectorGeneral)
         SectorGeneral sectorGeneral = modelMapper.map(sectorGeneralDTO, SectorGeneral.class);
-        //asignar atributo fecha
-        sectorGeneral.setFechaIngresoValorKwh(LocalDate.now());
         //retornar
         return sectorGeneral;
     }

@@ -14,22 +14,14 @@ public class SectorGeneral {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "nomSectorGnral", nullable = false)
     private String nomSectorGnral;
-
-    @Column(name = "valorKwh", nullable = false)
     private double valorKwh;
-    @Column(name = "fechaIngresoValorKwh", nullable = false)
     private LocalDate fechaIngresoValorKwh;
-    @Column(name = "mtrsCuadrados", nullable = true)
     private double mtrsCuadrados; //null
 
     //los atributos que continúan no estoy seguro de si debo mandarlo a la base de datos
-    @Column(name = "totalConsumoW", nullable = true)
     private double totalConsumoW; //null
 
-    @Column(name = "totalPesos", nullable = true)
     private double totalPesos; //null
 
     //muchos sectores gnrales podrán estar en un usuario (fetchType.lazy indica que el usuario se mostrará al cargar esta tabla sólo cuando lo indiquemos)
@@ -37,8 +29,6 @@ public class SectorGeneral {
     @JoinColumn(name = "idUsuario", nullable = false)
     private Usuario usuario;
 
-    //esta anotación permite que el json se muestre ordenadamente, sino se producirá una lista gigante de retornos con errores
-    //@JsonBackReference
     @OneToMany(mappedBy = "sectorGeneral", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<SectorEspecifico> sectoresEspecificos = new HashSet<>();
 

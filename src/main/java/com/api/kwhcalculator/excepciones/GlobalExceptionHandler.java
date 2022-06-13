@@ -1,7 +1,6 @@
 package com.api.kwhcalculator.excepciones;
 
 import com.api.kwhcalculator.dto.ErrorDetalles;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
