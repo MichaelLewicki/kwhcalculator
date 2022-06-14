@@ -8,6 +8,15 @@ public class RegistroUsuarioDTO {
     private String email;
     private String password;
 
+    public RegistroUsuarioDTO() {
+    }
+
+    public RegistroUsuarioDTO(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     public String getUsername() {
         return username;
     }

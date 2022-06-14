@@ -72,9 +72,6 @@ public class AuthControlador {
         //se le ingresa al usuario un rol Singleton ya que la instancia al rol son compartidas entre uno y muchos usuarios
         usuario.setRoles(Collections.singleton(roles));
         usuarioRepositorio.save(usuario);
-        return new ResponseEntity<>("Usuario registrado exitosamente", HttpStatus.OK);
+        return ResponseEntity.ok(new RegistroUsuarioDTO(usuario.getUsername(),usuario.getEmail(),usuario.getPassword()));
     }
-
-
-
 }
