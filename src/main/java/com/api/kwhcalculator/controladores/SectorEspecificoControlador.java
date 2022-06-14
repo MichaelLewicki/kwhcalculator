@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/usuarios/{idUsuario}/sectoresgenerales/{idSectorGeneral}")
+@RequestMapping("/api/usuarios/{idUsuario}/sectoresGenerales/{idSectorGeneral}")
 public class SectorEspecificoControlador {
 
     @Autowired

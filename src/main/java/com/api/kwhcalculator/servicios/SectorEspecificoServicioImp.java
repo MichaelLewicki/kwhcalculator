@@ -5,7 +5,6 @@ import com.api.kwhcalculator.excepciones.ApiRestAppException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
 import com.api.kwhcalculator.modelos.SectorEspecifico;
 import com.api.kwhcalculator.modelos.SectorGeneral;
-import com.api.kwhcalculator.modelos.Usuario;
 import com.api.kwhcalculator.repositorios.SectorEspecificoRepositorio;
 import com.api.kwhcalculator.repositorios.SectorGeneralRepositorio;
 import org.modelmapper.ModelMapper;
@@ -108,7 +107,7 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
 
     //Este método convierte de DTO a entidad
     private SectorEspecifico mapearEntidad (SectorEspecificoDTO sectorEspecificoDTO) {
-        //establecer los valores del objeto de transferencia (DTO) a la entidad (SectorGeneral)
+        //establecer los valores del objeto de transferencia (DTO) a la entidad (SectorEspecifico)
         SectorEspecifico sectorEspecifico = modelMapper.map(sectorEspecificoDTO, SectorEspecifico.class);
         //retornar
         return sectorEspecifico;
@@ -116,7 +115,7 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
 
     //Este método convierte entidad a DTO
     private SectorEspecificoDTO mapearDTO (SectorEspecifico sectorEspecifico) {
-        //establecer los valores de la entidad (SectorGeneral) al objeto de transferencia (DTO)
+        //establecer los valores de la entidad (SectorEspecifico) al objeto de transferencia (DTO)
         SectorEspecificoDTO sectorEspecificoDTO = modelMapper.map(sectorEspecifico, SectorEspecificoDTO.class);
         //retornar
         return sectorEspecificoDTO;

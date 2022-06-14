@@ -1,6 +1,8 @@
 package com.api.kwhcalculator.modelos;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "sectorEspecifico")
@@ -25,6 +27,9 @@ public class SectorEspecifico {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "idSectorGeneral", nullable = false)
     private SectorGeneral sectorGeneral;
+
+    @OneToMany(mappedBy = "sectorEspecifico", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<AparatoElectronicoUsuario> aparatosElectronicosUsuario = new HashSet<>();
 
     public SectorEspecifico() {
     }
@@ -80,5 +85,13 @@ public class SectorEspecifico {
 
     public void setSectorGeneral(SectorGeneral sectorGeneral) {
         this.sectorGeneral = sectorGeneral;
+    }
+
+    public Set<AparatoElectronicoUsuario> getAparatosElectronicosUsuario() {
+        return aparatosElectronicosUsuario;
+    }
+
+    public void setAparatosElectronicosUsuario(Set<AparatoElectronicoUsuario> aparatosElectronicosUsuario) {
+        this.aparatosElectronicosUsuario = aparatosElectronicosUsuario;
     }
 }

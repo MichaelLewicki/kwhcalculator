@@ -16,5 +16,4 @@ public interface SectorEspecificoServicio {
 
     void eliminarSectorEspecifico(long idSectorGeneral, long idSectorEspecifico);
 
-
 }
