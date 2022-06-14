@@ -52,7 +52,7 @@ public class AuthControlador {
         //obtenemos el token del JwtProvider
         String token = jwtTokenProvider.generarToken(authentication);
         //buscar el username del usaurio (MODIFICACIÓN A PEDIDO DEL VICTOR)
-        Usuario usuario = usuarioRepositorio.findByUsername(loginDTO.getUsernameOrEmail())
+        Usuario usuario = usuarioRepositorio.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + loginDTO.getUsernameOrEmail()));
         //return new ResponseEntity<>("Ha logrado iniciar sesión exitosamente", HttpStatus.OK); esto era así antes de implementar JWT
         //acá antes sólo enviábamos el token, pero el victor pidió el username también
