@@ -20,19 +20,19 @@ public class SectorGeneralControlador {
     //todas las peticiones devuelven DTO, ya que el objeto de transferencia realmente contiene un JSON (objetoDTO = JSON)
 
     //Crear Sector General
-    @PostMapping("/sectoresgenerales")
+    @PostMapping("/sectoresGenerales")
     public ResponseEntity<SectorGeneralDTO> crearSectorGeneral(@PathVariable(value = "idUsuario") long idUsuario, @RequestBody SectorGeneralDTO sectorGeneralDTO) {
         return new ResponseEntity<>(sectorGeneralServicio.crearSectorGeneral(idUsuario, sectorGeneralDTO), HttpStatus.CREATED);
     }
 
     //Obtener lista de sectores generales asociados al ID de un usuario
-    @GetMapping("/sectoresgenerales")
+    @GetMapping("/sectoresGenerales")
     public List<SectorGeneralDTO> listarSectoresGeneralesPorUsuarioId(@PathVariable(value = "idUsuario") long idUsuario) {
         return sectorGeneralServicio.obtenerSectoresGeneralesPorUsuarioId(idUsuario);
     }
 
     //Obtener un sector general buscándolo por el ID del usuario y el ID del sector general
-    @GetMapping("/sectoresgenerales/{idSectorGeneral}")
+    @GetMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<SectorGeneralDTO> obtenerSectorGeneralPorId(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
         //retorna una respuesta de una entidad con HTTPStatus.OK
         SectorGeneralDTO sectorGeneralDTO = sectorGeneralServicio.obtenerSectorGeneralPorUsuarioIdSectorGeneralId(idUsuario,idSectorGeneral);
@@ -40,7 +40,7 @@ public class SectorGeneralControlador {
     }
 
     //Modificar un sector general buscándolo por el ID del usuario y el ID del sector general
-    @PutMapping("/sectoresgenerales/{idSectorGeneral}")
+    @PutMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<SectorGeneralDTO> modificarSectorGeneralPorId(@PathVariable(value = "idUsuario") long idUsuario,
                                                                         @PathVariable(value = "idSectorGeneral") long idSectorGeneral,
                                                                         @RequestBody SectorGeneralDTO sectorGeneralDTO) {
@@ -48,7 +48,7 @@ public class SectorGeneralControlador {
         return new ResponseEntity<>(sectorGeneralRespuesta, HttpStatus.OK);
     }
 
-    @DeleteMapping("/sectoresgenerales/{idSectorGeneral}")
+    @DeleteMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<String> eliminarSectorGeneral(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
         sectorGeneralServicio.eliminarSectorGeneral(idUsuario, idSectorGeneral);
         return new ResponseEntity<>("Sector general eliminado exitosamente", HttpStatus.OK);

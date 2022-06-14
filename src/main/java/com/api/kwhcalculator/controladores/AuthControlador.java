@@ -55,8 +55,8 @@ public class AuthControlador {
         Usuario usuario = usuarioRepositorio.findByUsernameOrEmail(loginDTO.getUsernameOrEmail(), loginDTO.getUsernameOrEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + loginDTO.getUsernameOrEmail()));
         //return new ResponseEntity<>("Ha logrado iniciar sesión exitosamente", HttpStatus.OK); esto era así antes de implementar JWT
-        //acá antes sólo enviábamos el token, pero el victor pidió el username también
-        return ResponseEntity.ok(new JWTAuthResponseDTO(usuario.getUsername(),token));
+        //acá antes sólo enviábamos el token, pero el victor pidió el username y el ID también
+        return ResponseEntity.ok(new JWTAuthResponseDTO(usuario.getUsername(), usuario.getId(),token));
     }
 
     //método para registrar un usuario (se le otorgará el rol ADMIN)

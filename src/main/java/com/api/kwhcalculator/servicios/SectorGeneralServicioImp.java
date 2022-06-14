@@ -2,6 +2,7 @@ package com.api.kwhcalculator.servicios;
 
 import com.api.kwhcalculator.dto.SectorGeneralDTO;
 import com.api.kwhcalculator.excepciones.ApiRestAppException;
+import com.api.kwhcalculator.excepciones.EmptyException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
 import com.api.kwhcalculator.modelos.SectorGeneral;
 import com.api.kwhcalculator.modelos.Usuario;
@@ -54,7 +55,8 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
     public List<SectorGeneralDTO> obtenerSectoresGeneralesPorUsuarioId(long idUsuario) {
         List<SectorGeneral> sectoresGenerales = sectorGeneralRepositorio.findByUsuarioId(idUsuario);
         if (sectoresGenerales.isEmpty()) {
-            throw new ResourceNotFoundException("Usuario", "idUsuario", idUsuario);
+            //throw new ResourceNotFoundException("SectorGeneral", "idUsuario", idUsuario);
+            throw new EmptyException(false);
         }
         //retornar una lista de entidades que llegaron de la base de datos mapeadas a DTO
         return sectoresGenerales.stream().map(sectorGeneral -> mapearDTO(sectorGeneral)).collect(Collectors.toList());
