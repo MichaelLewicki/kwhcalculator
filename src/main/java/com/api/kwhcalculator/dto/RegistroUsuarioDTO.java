@@ -12,7 +12,7 @@ public class RegistroUsuarioDTO {
     private String username;
     @NotEmpty(message = "el email ingresado no puede estar vacío")
     @NotNull(message = "el email no debe ser nulo")
-    @Size(min = 8, message = "El email del usuario debería tener al menos 5 carácteres")
+    @Size(min = 8, message = "El email del usuario debería tener al menos 8 carácteres")
     private String email;
     @NotEmpty(message = "la password ingresada no puede estar vacía")
     @NotNull(message = "la password ingresada no debe ser nula")
