@@ -2,7 +2,8 @@ package com.api.kwhcalculator.seguridad;
 
 public class JWTAuthResponseDTO {
 
-    private String usernameOrEmail;
+    //este último atributo lo pidió victor, antes no estaba. Se tuvieron que modificar los constructores (tokenAcceso, tipoToken) (crearlos de nuevo de ser necesario)
+    private String username;
     private String tokenDeAcceso;
     private String tipoDeToken = "Bearer";
 
@@ -13,17 +14,17 @@ public class JWTAuthResponseDTO {
         this.tokenDeAcceso = tokenDeAcceso;
     }
 
-    public JWTAuthResponseDTO(String usernameOrEmail, String tokenDeAcceso) {
-        this.usernameOrEmail = usernameOrEmail;
+    public JWTAuthResponseDTO(String username, String tokenDeAcceso) {
+        this.username = username;
         this.tokenDeAcceso = tokenDeAcceso;
     }
 
-    public String getUsernameOrEmail() {
-        return usernameOrEmail;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUsernameOrEmail(String usernameOrEmail) {
-        this.usernameOrEmail = usernameOrEmail;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTokenDeAcceso() {

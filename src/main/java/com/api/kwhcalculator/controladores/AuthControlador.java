@@ -15,6 +15,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +51,12 @@ public class AuthControlador {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //obtenemos el token del JwtProvider
         String token = jwtTokenProvider.generarToken(authentication);
+        //buscar el username del usaurio (MODIFICACIÓN A PEDIDO DEL VICTOR)
+        Usuario usuario = usuarioRepositorio.findByUsername(loginDTO.getUsernameOrEmail())
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con ese username o email : " + loginDTO.getUsernameOrEmail()));
         //return new ResponseEntity<>("Ha logrado iniciar sesión exitosamente", HttpStatus.OK); esto era así antes de implementar JWT
-        return ResponseEntity.ok(new JWTAuthResponseDTO(loginDTO.getUsernameOrEmail(),token));
+        //acá antes sólo enviábamos el token, pero el victor pidió el username también
+        return ResponseEntity.ok(new JWTAuthResponseDTO(usuario.getUsername(),token));
     }
 
     //método para registrar un usuario (se le otorgará el rol ADMIN)
@@ -72,6 +77,6 @@ public class AuthControlador {
         //se le ingresa al usuario un rol Singleton ya que la instancia al rol son compartidas entre uno y muchos usuarios
         usuario.setRoles(Collections.singleton(roles));
         usuarioRepositorio.save(usuario);
-        return ResponseEntity.ok(new RegistroUsuarioDTO(usuario.getUsername(),usuario.getEmail(),usuario.getPassword()));
+        return new ResponseEntity<>("Usuario registrado exitosamente", HttpStatus.OK);
     }
 }

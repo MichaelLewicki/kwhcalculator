@@ -19,9 +19,9 @@ public class AparatoElectronicoUsuario {
 
     private String codigo; //null
 
-    private String Marca; //null
+    private String marca; //null
 
-    private double WattsConsumo;
+    private double wattsConsumo;
 
     private LocalTime tiempoUsoDiario;
 
@@ -37,15 +37,15 @@ public class AparatoElectronicoUsuario {
     public AparatoElectronicoUsuario(Long id, String nombreAparato, double wattsConsumo, LocalTime tiempoUsoDiario) {
         this.id = id;
         this.nombreAparato = nombreAparato;
-        WattsConsumo = wattsConsumo;
+        this.wattsConsumo = wattsConsumo;
         this.tiempoUsoDiario = tiempoUsoDiario;
     }
 
     public AparatoElectronicoUsuario(Long id, String nombreAparato, String marca, double wattsConsumo, LocalTime tiempoUsoDiario) {
         this.id = id;
         this.nombreAparato = nombreAparato;
-        Marca = marca;
-        WattsConsumo = wattsConsumo;
+        this.marca = marca;
+        this.wattsConsumo = wattsConsumo;
         this.tiempoUsoDiario = tiempoUsoDiario;
     }
 
@@ -53,8 +53,8 @@ public class AparatoElectronicoUsuario {
         this.id = id;
         this.nombreAparato = nombreAparato;
         this.codigo = codigo;
-        Marca = marca;
-        WattsConsumo = wattsConsumo;
+        this.marca = marca;
+        this.wattsConsumo = wattsConsumo;
         this.tiempoUsoDiario = tiempoUsoDiario;
     }
 
@@ -84,14 +84,6 @@ public class AparatoElectronicoUsuario {
         this.codigo = codigo;
     }
 
-    public double getWattsConsumo() {
-        return WattsConsumo;
-    }
-
-    public void setWattsConsumo(double wattsConsumo) {
-        WattsConsumo = wattsConsumo;
-    }
-
     public LocalTime getTiempoUsoDiario() {
         return tiempoUsoDiario;
     }
@@ -109,10 +101,18 @@ public class AparatoElectronicoUsuario {
     }
 
     public String getMarca() {
-        return Marca;
+        return marca;
     }
 
     public void setMarca(String marca) {
-        Marca = marca;
+        this.marca = marca;
+    }
+
+    public double getWattsConsumo() {
+        return wattsConsumo;
+    }
+
+    public void setWattsConsumo(double wattsConsumo) {
+        this.wattsConsumo = wattsConsumo;
     }
 }
