@@ -56,7 +56,7 @@ public class AuthControlador {
 
     //método para registrar un usuario (se le otorgará el rol ADMIN)
     @PostMapping("/registrar")
-    public ResponseEntity<?> registrarUsuario(@Valid @RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
+    public ResponseEntity<?> registrarUsuario(@RequestBody RegistroUsuarioDTO registroUsuarioDTO) {
         if (usuarioRepositorio.existsByUsername(registroUsuarioDTO.getUsername())) {
             return new ResponseEntity<>("El nombre de usuario ya se encuentra registrado", HttpStatus.BAD_REQUEST);
         } else if (usuarioRepositorio.existsByEmail(registroUsuarioDTO.getEmail())) {
