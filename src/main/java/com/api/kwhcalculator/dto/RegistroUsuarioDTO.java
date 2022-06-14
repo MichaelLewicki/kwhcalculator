@@ -4,7 +4,6 @@ package com.api.kwhcalculator.dto;
 public class RegistroUsuarioDTO {
 
     private String username;
-
     private String email;
     private String password;
 
