@@ -3,6 +3,7 @@ package com.api.kwhcalculator.dto;
 
 public class RegistroUsuarioDTO {
 
+    //Ver si funciona sin validación
     private String username;
     private String email;
     private String password;
