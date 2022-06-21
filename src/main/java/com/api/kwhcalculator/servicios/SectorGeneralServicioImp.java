@@ -4,6 +4,8 @@ import com.api.kwhcalculator.dto.SectorGeneralDTO;
 import com.api.kwhcalculator.excepciones.ApiRestAppException;
 import com.api.kwhcalculator.excepciones.EmptyException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
+import com.api.kwhcalculator.modelos.AparatoElectronicoUsuario;
+import com.api.kwhcalculator.modelos.SectorEspecifico;
 import com.api.kwhcalculator.modelos.SectorGeneral;
 import com.api.kwhcalculator.modelos.Usuario;
 import com.api.kwhcalculator.repositorios.SectorGeneralRepositorio;
@@ -12,9 +14,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -52,14 +56,39 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
 
     //método para obtener una lista de sectores generales mediante el ID del usuario
     @Override
+    @Transactional
     public List<SectorGeneralDTO> obtenerSectoresGeneralesPorUsuarioId(long idUsuario) {
         List<SectorGeneral> sectoresGenerales = sectorGeneralRepositorio.findByUsuarioId(idUsuario);
         if (sectoresGenerales.isEmpty()) {
             //throw new ResourceNotFoundException("SectorGeneral", "idUsuario", idUsuario);
             throw new EmptyException(false);
+        } else {
+            acumularMtrsCuadradosPorUsuarioId(idUsuario);
         }
         //retornar una lista de entidades que llegaron de la base de datos mapeadas a DTO
         return sectoresGenerales.stream().map(sectorGeneral -> mapearDTO(sectorGeneral)).collect(Collectors.toList());
+    }
+
+    public void acumularMtrsCuadradosPorUsuarioId(long idUsuario) {
+        //buscar en la BD
+        List<SectorGeneral> sectoresGenerales = sectorGeneralRepositorio.findByUsuarioId(idUsuario);
+        //Declarar acumulador
+        double acumMtrsCuadrados = 0;
+        //recorrer lista sectoresGenerales
+        for (SectorGeneral sectorGeneral : sectoresGenerales) {
+            Set<SectorEspecifico> sectoresEspecificos = sectorGeneral.getSectoresEspecificos();
+            //recorrer lista de sectoresEspecíficos
+            for (SectorEspecifico sectorEspecifico : sectoresEspecificos) {
+                acumMtrsCuadrados = acumMtrsCuadrados + sectorEspecifico.getMtrsCuadrados();
+            }
+            sectorGeneral.setMtrsCuadrados(acumMtrsCuadrados);
+            acumMtrsCuadrados = 0;
+            //List<AparatoElectronicoUsuario> aparatosElectronicosUsuarios = null;
+            //aparatosElectronicosUsuarios.add((AparatoElectronicoUsuario) sector.getAparatosElectronicosUsuario());
+            //Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
+            //sector.setTotalPesos(sector.getTotalConsumoW()+);
+        }
+        //return sectoresEspecificos.stream().map(sectorEspecifico -> mapearDTO(sectorEspecifico)).collect(Collectors.toList());
     }
 
     //método para obtener sector general mediante ID del usuario y ID del sector general

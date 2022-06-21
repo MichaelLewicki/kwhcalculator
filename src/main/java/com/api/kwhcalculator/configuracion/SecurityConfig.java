@@ -42,6 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new JwtAuthenticationFilter();
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- Swagger UI v2
+            "/v2/api-docs",
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/configuration/ui",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**",
+            // -- Swagger UI v3 (OpenAPI)
+            "/v3/api-docs/**",
+            "/swagger-ui/**"
+            // other public endpoints of your API may be appended to this array
+    };
+
     //donde se aplique esto se obliga a hashear las contraseñas, ya que retorna una contraseña hasheada
     @Bean
     PasswordEncoder passwordEncoder() {
@@ -64,6 +79,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()//indicar quien puede realizar peticiones
                 .antMatchers(HttpMethod.GET,"/api/**").permitAll()//todos pueden hacer peticiones GET
                 .antMatchers("/api/auth/**").permitAll()//todos pueden autenticarse
+                .antMatchers(AUTH_WHITELIST).permitAll()//para que funcione swagger
                 .anyRequest().authenticated();//cualquier otra petición debe estar autenticada
                 //esto se quitó para realizar peticiones en Postman con un Token
                 //.and()

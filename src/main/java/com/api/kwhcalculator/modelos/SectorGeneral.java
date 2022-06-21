@@ -99,4 +99,12 @@ public class SectorGeneral {
     public void setTotalPesos(double totalPesos) {
         this.totalPesos = totalPesos;
     }
+
+    public Set<SectorEspecifico> getSectoresEspecificos() {
+        return sectoresEspecificos;
+    }
+
+    public void setSectoresEspecificos(Set<SectorEspecifico> sectoresEspecificos) {
+        this.sectoresEspecificos = sectoresEspecificos;
+    }
 }

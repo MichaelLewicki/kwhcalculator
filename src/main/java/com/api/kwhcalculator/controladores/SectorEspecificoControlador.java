@@ -37,7 +37,13 @@ public class SectorEspecificoControlador {
                                                                                  @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
         return sectorEspecificoServicio.obtenerSecEspecificosPorSecGeneralId(idSectorGeneral);
     }
-
+    /*
+    @GetMapping("/sectoresEspecificos/actualizar")
+    public List<SectorEspecificoDTO> acumularWattsSectorEspecificoPorSectorGeneralId(@PathVariable(value = "idUsuario") long idUsuario,
+                                                                                 @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
+        return sectorEspecificoServicio.acumularWattsPorSectorGeneralId(idSectorGeneral);
+    }
+    */
     //Obtener un sector específico buscándolo por el ID del sector general y el ID del sector específico
     @GetMapping("/sectoresEspecificos/{idSectorEspecifico}")
     public ResponseEntity<SectorEspecificoDTO> obtenerSectorEspecificoPorId(@PathVariable(value = "idUsuario") long idUsuario,
@@ -47,6 +53,7 @@ public class SectorEspecificoControlador {
         SectorEspecificoDTO sectorEspecificoDTO = sectorEspecificoServicio.obtenerSecEspecificoPorSecGeneralIdSecEspecificoId(idSectorGeneral,idSectorEspecifico);
         return new ResponseEntity<>(sectorEspecificoDTO, HttpStatus.OK);
     }
+
 
     //modificar sector específico buscándolo por el ID del sector general y el ID del sector específico
     @PutMapping("/sectoresEspecificos/{idSectorEspecifico}")

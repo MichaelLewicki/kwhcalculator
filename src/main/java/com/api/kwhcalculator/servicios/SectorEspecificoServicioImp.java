@@ -2,6 +2,7 @@ package com.api.kwhcalculator.servicios;
 
 import com.api.kwhcalculator.dto.SectorEspecificoDTO;
 import com.api.kwhcalculator.excepciones.ApiRestAppException;
+import com.api.kwhcalculator.excepciones.EmptyException;
 import com.api.kwhcalculator.excepciones.ResourceNotFoundException;
 import com.api.kwhcalculator.modelos.AparatoElectronicoUsuario;
 import com.api.kwhcalculator.modelos.SectorEspecifico;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
@@ -48,36 +50,38 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
     }
 
     @Override
+    @Transactional
     public List<SectorEspecificoDTO> obtenerSecEspecificosPorSecGeneralId(long idSectorGeneral) {
-        List<SectorEspecifico> sectoresEspecifico = sectorEspecificoRepositorio.findBySectorGeneralId(idSectorGeneral);
-        if (sectoresEspecifico.isEmpty()) {
-            throw new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral);
+        List<SectorEspecifico> sectoresEspecificos = sectorEspecificoRepositorio.findBySectorGeneralId(idSectorGeneral);
+        if (sectoresEspecificos.isEmpty()) {
+            //throw new ResourceNotFoundException("SectorGeneral", "idSectorGeneral", idSectorGeneral);
+            throw new EmptyException(false);
+        } else {
+            acumularWattsPorSectorGeneralId(idSectorGeneral);
         }
         //retornar una lista de entidades que llegaron de la base de datos mapeadas a DTO
-        return sectoresEspecifico.stream().map(sectorEspecifico -> mapearDTO(sectorEspecifico)).collect(Collectors.toList());
+        return sectoresEspecificos.stream().map(sectorEspecifico -> mapearDTO(sectorEspecifico)).collect(Collectors.toList());
     }
 
-    /*
-    private SectorEspecificoDTO acumularWatts(long idSectorGeneral) {
+    //Acumular Metros cuadrados de todos los sectores específicos de un sector general mediante idUsuario
+    //@Override
+    //@Transactional
+    public void acumularWattsPorSectorGeneralId(long idSectorGeneral) {
+        //buscar en la BD
         List<SectorEspecifico> sectoresEspecificos = sectorEspecificoRepositorio.findBySectorGeneralId(idSectorGeneral);
-        //Agregar acumulador
+        //Declarar acumulador
         double consumoTotalW = 0;
         //recorrer lista sectores
         for (SectorEspecifico sector : sectoresEspecificos) {
             Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
+            //recorrer lista de usuarios
             for (AparatoElectronicoUsuario aparato : aparatoElectronicoUsuarios) {
                 consumoTotalW = consumoTotalW + aparato.getWattsConsumo();
             }
-            //List<AparatoElectronicoUsuario> aparatosElectronicosUsuarios = null;
-            //aparatosElectronicosUsuarios.add((AparatoElectronicoUsuario) sector.getAparatosElectronicosUsuario());
-            //Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
-            //sector.setTotalPesos(sector.getTotalConsumoW()+);
+            sector.setTotalConsumoW(consumoTotalW);
+            consumoTotalW = 0;
         }
-        SectorEspecificoDTO sectorEspecificoDTO =
-        return sectoresEspecifico.stream().map(sectorEspecifico -> mapearDTO(sectorEspecifico)).collect(Collectors.toList());
     }
-    */
-
 
     @Override
     public SectorEspecificoDTO obtenerSecEspecificoPorSecGeneralIdSecEspecificoId(long idSectorGeneral, long idSectorEspecifico) {
