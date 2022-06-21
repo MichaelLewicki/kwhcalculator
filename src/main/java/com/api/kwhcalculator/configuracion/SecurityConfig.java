@@ -69,14 +69,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //csrf se desactiva porque spring boot ya tiene integrado un bloqueo de ataques con CSRF
-        http.csrf().disable()
+        http.csrf().disable().cors().and()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)//se asigna porque quien será quien libere las excepciones será este componente
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)//política de creación de sesión es Stateless porque es SIN ESTADO
                 .and()
-                .authorizeRequests()//indicar quien puede realizar peticiones
+                .authorizeRequests()//desde aquí se indicarán quienes podrán realizar peticiones
                 .antMatchers(HttpMethod.GET,"/api/**").permitAll()//todos pueden hacer peticiones GET
                 .antMatchers("/api/auth/**").permitAll()//todos pueden autenticarse
                 .antMatchers(AUTH_WHITELIST).permitAll()//para que funcione swagger
