@@ -69,7 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //csrf se desactiva porque spring boot ya tiene integrado un bloqueo de ataques con CSRF
-        http.csrf().disable().cors().and()
+        http.csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)//se asigna porque quien será quien libere las excepciones será este componente
                 .and()
@@ -86,6 +86,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //.httpBasic();
             //asignar el filtro del token
             http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+            http.cors();
     }
 
     //Crear método de autenticación de usuarios
