@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoField;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -70,16 +72,28 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
         //buscar en la BD
         List<SectorEspecifico> sectoresEspecificos = sectorEspecificoRepositorio.findBySectorGeneralId(idSectorGeneral);
         //Declarar acumulador
-        double consumoTotalW = 0;
+        double acumConsumoTotalKwhMes = 0;
+        int minutosAlDia = 0;
+        double cantWatts = 0;
         //recorrer lista sectores
         for (SectorEspecifico sector : sectoresEspecificos) {
             Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
             //recorrer lista de usuarios
             for (AparatoElectronicoUsuario aparato : aparatoElectronicoUsuarios) {
-                consumoTotalW = consumoTotalW + aparato.getWattsConsumo();
+                //consumoTotalW = consumoTotalW + aparato.getWattsConsumo();
+                //consumoTotalW = consumoTotalW + aparato.getWattsConsumo();
+                LocalTime tiempoUsoDiario = aparato.getTiempoUsoDiario();
+                cantWatts = aparato.getWattsConsumo();
+                //convertir tiempo a minutos por día
+                minutosAlDia = tiempoUsoDiario.get(ChronoField.MINUTE_OF_DAY);
+                acumConsumoTotalKwhMes = acumConsumoTotalKwhMes + (cantWatts * minutosAlDia / 60 / 1000);
+
             }
-            sector.setTotalConsumoW(consumoTotalW);
-            consumoTotalW = 0;
+            sector.setTotalConsumoW(acumConsumoTotalKwhMes);
+            //calcular valor en pesos
+            double valorKwh = sector.getSectorGeneral().getValorKwh();
+            sector.setTotalPesos(acumConsumoTotalKwhMes * valorKwh);
+            acumConsumoTotalKwhMes = 0;
         }
     }
 

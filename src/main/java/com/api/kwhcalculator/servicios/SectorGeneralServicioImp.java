@@ -74,15 +74,23 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
         List<SectorGeneral> sectoresGenerales = sectorGeneralRepositorio.findByUsuarioId(idUsuario);
         //Declarar acumulador
         double acumMtrsCuadrados = 0;
+        double acumTotalConsumoKwhMes = 0;
+        double acumTotalPesos = 0;
         //recorrer lista sectoresGenerales
         for (SectorGeneral sectorGeneral : sectoresGenerales) {
             Set<SectorEspecifico> sectoresEspecificos = sectorGeneral.getSectoresEspecificos();
             //recorrer lista de sectoresEspecíficos
             for (SectorEspecifico sectorEspecifico : sectoresEspecificos) {
                 acumMtrsCuadrados = acumMtrsCuadrados + sectorEspecifico.getMtrsCuadrados();
+                acumTotalConsumoKwhMes = acumTotalConsumoKwhMes + sectorEspecifico.getTotalConsumoW();
+                acumTotalPesos = acumTotalPesos + sectorEspecifico.getTotalPesos();
             }
             sectorGeneral.setMtrsCuadrados(acumMtrsCuadrados);
+            sectorGeneral.setTotalConsumoW(acumTotalConsumoKwhMes);
+            sectorGeneral.setTotalPesos(acumTotalPesos);
             acumMtrsCuadrados = 0;
+            acumTotalConsumoKwhMes = 0;
+            acumTotalPesos = 0;
             //List<AparatoElectronicoUsuario> aparatosElectronicosUsuarios = null;
             //aparatosElectronicosUsuarios.add((AparatoElectronicoUsuario) sector.getAparatosElectronicosUsuario());
             //Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
