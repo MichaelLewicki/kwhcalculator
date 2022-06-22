@@ -17,6 +17,8 @@ public class SectorGeneral {
     private String nomSectorGnral;
     private double valorKwh;
     private LocalDate fechaIngresoValorKwh;
+
+    private int cantSectoresEspecificios;
     private double mtrsCuadrados; //null
 
     //los atributos que continúan no estoy seguro de si debo mandarlo a la base de datos
@@ -106,5 +108,13 @@ public class SectorGeneral {
 
     public void setSectoresEspecificos(Set<SectorEspecifico> sectoresEspecificos) {
         this.sectoresEspecificos = sectoresEspecificos;
+    }
+
+    public int getCantSectoresEspecificios() {
+        return cantSectoresEspecificios;
+    }
+
+    public void setCantSectoresEspecificios(int cantSectoresEspecificios) {
+        this.cantSectoresEspecificios = cantSectoresEspecificios;
     }
 }

@@ -76,6 +76,7 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
         double acumMtrsCuadrados = 0;
         double acumTotalConsumoKwhMes = 0;
         double acumTotalPesos = 0;
+        int acumSectoresEspecíficos = 0;
         //recorrer lista sectoresGenerales
         for (SectorGeneral sectorGeneral : sectoresGenerales) {
             Set<SectorEspecifico> sectoresEspecificos = sectorGeneral.getSectoresEspecificos();
@@ -84,13 +85,16 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
                 acumMtrsCuadrados = acumMtrsCuadrados + sectorEspecifico.getMtrsCuadrados();
                 acumTotalConsumoKwhMes = acumTotalConsumoKwhMes + sectorEspecifico.getTotalConsumoW();
                 acumTotalPesos = acumTotalPesos + sectorEspecifico.getTotalPesos();
+                acumSectoresEspecíficos = acumSectoresEspecíficos + 1;
             }
             sectorGeneral.setMtrsCuadrados(acumMtrsCuadrados);
             sectorGeneral.setTotalConsumoW(acumTotalConsumoKwhMes);
             sectorGeneral.setTotalPesos(acumTotalPesos);
+            sectorGeneral.setCantSectoresEspecificios(acumSectoresEspecíficos);
             acumMtrsCuadrados = 0;
             acumTotalConsumoKwhMes = 0;
             acumTotalPesos = 0;
+            acumSectoresEspecíficos = 0;
             //List<AparatoElectronicoUsuario> aparatosElectronicosUsuarios = null;
             //aparatosElectronicosUsuarios.add((AparatoElectronicoUsuario) sector.getAparatosElectronicosUsuario());
             //Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();

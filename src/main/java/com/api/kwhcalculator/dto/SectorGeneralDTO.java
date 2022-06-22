@@ -8,6 +8,7 @@ public class SectorGeneralDTO {
     private String nomSectorGnral;
     private double valorKwh;
     private LocalDate fechaIngresoValorKwh;
+    private int cantSectoresEspecificios;
     private double mtrsCuadrados; //null
     //esto de aquí no estoy seguro si mandarlo a la base de datos
     private double totalConsumoW; //null
@@ -71,5 +72,13 @@ public class SectorGeneralDTO {
 
     public void setTotalPesos(double totalPesos) {
         this.totalPesos = totalPesos;
+    }
+
+    public int getCantSectoresEspecificios() {
+        return cantSectoresEspecificios;
+    }
+
+    public void setCantSectoresEspecificios(int cantSectoresEspecificios) {
+        this.cantSectoresEspecificios = cantSectoresEspecificios;
     }
 }
