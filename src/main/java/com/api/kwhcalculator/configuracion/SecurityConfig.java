@@ -84,9 +84,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //esto se quitó para realizar peticiones en Postman con un Token
                 //.and()
                 //.httpBasic();
-            //asignar el filtro del token
-            http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-            http.cors();
+        http.cors();
+        //asignar el filtro del token
+        http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
 
     //Crear método de autenticación de usuarios
