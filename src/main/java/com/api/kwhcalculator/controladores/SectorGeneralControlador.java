@@ -5,6 +5,7 @@ import com.api.kwhcalculator.servicios.SectorGeneralServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,18 +20,21 @@ public class SectorGeneralControlador {
 
     //todas las peticiones devuelven DTO, ya que el objeto de transferencia realmente contiene un JSON (objetoDTO = JSON)
 
+    @PreAuthorize("hasRole('ADMIN')")
     //Crear Sector General
     @PostMapping("/sectoresGenerales")
     public ResponseEntity<SectorGeneralDTO> crearSectorGeneral(@PathVariable(value = "idUsuario") long idUsuario, @RequestBody SectorGeneralDTO sectorGeneralDTO) {
         return new ResponseEntity<>(sectorGeneralServicio.crearSectorGeneral(idUsuario, sectorGeneralDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     //Obtener lista de sectores generales asociados al ID de un usuario
     @GetMapping("/sectoresGenerales")
     public List<SectorGeneralDTO> listarSectoresGeneralesPorUsuarioId(@PathVariable(value = "idUsuario") long idUsuario) {
         return sectorGeneralServicio.obtenerSectoresGeneralesPorUsuarioId(idUsuario);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     //Obtener un sector general buscándolo por el ID del usuario y el ID del sector general
     @GetMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<SectorGeneralDTO> obtenerSectorGeneralPorId(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
@@ -39,6 +43,7 @@ public class SectorGeneralControlador {
         return new ResponseEntity<>(sectorGeneralDTO, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     //Modificar un sector general buscándolo por el ID del usuario y el ID del sector general
     @PutMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<SectorGeneralDTO> modificarSectorGeneralPorId(@PathVariable(value = "idUsuario") long idUsuario,
@@ -48,6 +53,7 @@ public class SectorGeneralControlador {
         return new ResponseEntity<>(sectorGeneralRespuesta, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/sectoresGenerales/{idSectorGeneral}")
     public ResponseEntity<String> eliminarSectorGeneral(@PathVariable(value = "idUsuario") long idUsuario, @PathVariable(value = "idSectorGeneral") long idSectorGeneral) {
         sectorGeneralServicio.eliminarSectorGeneral(idUsuario, idSectorGeneral);

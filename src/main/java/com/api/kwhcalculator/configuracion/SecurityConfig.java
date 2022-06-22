@@ -69,6 +69,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //csrf se desactiva porque spring boot ya tiene integrado un bloqueo de ataques con CSRF
+        http.cors();
         http.csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)//se asigna porque quien será quien libere las excepciones será este componente
@@ -84,7 +85,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //esto se quitó para realizar peticiones en Postman con un Token
                 //.and()
                 //.httpBasic();
-        http.cors();
         //asignar el filtro del token
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }
