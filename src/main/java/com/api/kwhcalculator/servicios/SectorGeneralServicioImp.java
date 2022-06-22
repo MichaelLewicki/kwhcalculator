@@ -58,6 +58,7 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
     @Override
     @Transactional
     public List<SectorGeneralDTO> obtenerSectoresGeneralesPorUsuarioId(long idUsuario) {
+        //buscar en la BD
         List<SectorGeneral> sectoresGenerales = sectorGeneralRepositorio.findByUsuarioId(idUsuario);
         if (sectoresGenerales.isEmpty()) {
             //throw new ResourceNotFoundException("SectorGeneral", "idUsuario", idUsuario);
