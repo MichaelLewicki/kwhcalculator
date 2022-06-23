@@ -18,6 +18,9 @@ public class SectorEspecifico {
     @Column(name = "mtrsCuadrados", nullable = true)
     private double mtrsCuadrados; //null
 
+    @Column(name = "cantAparatosElectronicos", nullable = true)
+    private int cantAparatosElectronicos;
+
     @Column(name = "totalConsumoW", nullable = true)
     private double totalConsumoW; //null
 
@@ -37,6 +40,14 @@ public class SectorEspecifico {
     public SectorEspecifico(Long id, String nomSectorEspecifico) {
         this.id = id;
         this.nomSectorEspecifico = nomSectorEspecifico;
+    }
+
+    public int getCantAparatosElectronicos() {
+        return cantAparatosElectronicos;
+    }
+
+    public void setCantAparatosElectronicos(int cantAparatosElectronicos) {
+        this.cantAparatosElectronicos = cantAparatosElectronicos;
     }
 
     public Long getId() {

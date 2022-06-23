@@ -75,6 +75,7 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
         double acumConsumoTotalKwhMes = 0;
         int minutosAlDia = 0;
         double cantWatts = 0;
+        int cantAparatosElectronicos = 0;
         //recorrer lista sectores
         for (SectorEspecifico sector : sectoresEspecificos) {
             Set<AparatoElectronicoUsuario> aparatoElectronicoUsuarios = sector.getAparatosElectronicosUsuario();
@@ -87,13 +88,16 @@ public class SectorEspecificoServicioImp implements SectorEspecificoServicio{
                 //convertir tiempo a minutos por día
                 minutosAlDia = tiempoUsoDiario.get(ChronoField.MINUTE_OF_DAY);
                 acumConsumoTotalKwhMes = acumConsumoTotalKwhMes + (cantWatts * minutosAlDia / 60 / 1000);
+                cantAparatosElectronicos = cantAparatosElectronicos + 1;
 
             }
             sector.setTotalConsumoW(acumConsumoTotalKwhMes);
             //calcular valor en pesos
             double valorKwh = sector.getSectorGeneral().getValorKwh();
             sector.setTotalPesos(acumConsumoTotalKwhMes * valorKwh);
+            sector.setCantAparatosElectronicos(cantAparatosElectronicos);
             acumConsumoTotalKwhMes = 0;
+            cantAparatosElectronicos = 0;
         }
     }
 

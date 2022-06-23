@@ -1,8 +1,6 @@
 package com.api.kwhcalculator.controladores;
 
 import com.api.kwhcalculator.dto.AparatoElectronicoOficialDTO;
-import com.api.kwhcalculator.dto.UsuarioDTO;
-import com.api.kwhcalculator.repositorios.AparatoElectronicoOficialRepositorio;
 import com.api.kwhcalculator.servicios.AparatoElectronicoOficialServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

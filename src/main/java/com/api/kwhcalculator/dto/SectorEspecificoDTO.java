@@ -8,6 +8,7 @@ public class SectorEspecificoDTO {
     private String nomSectorEspecifico;
     private double mtrsCuadrados; //null
     //esto de aquí no estoy seguro si mandarlo a la base de datos
+    private int cantAparatosElectronicos;
     private double totalConsumoW; //null
     private double totalPesos; //null
 
@@ -57,5 +58,13 @@ public class SectorEspecificoDTO {
 
     public void setTotalPesos(double totalPesos) {
         this.totalPesos = totalPesos;
+    }
+
+    public int getCantAparatosElectronicos() {
+        return cantAparatosElectronicos;
+    }
+
+    public void setCantAparatosElectronicos(int cantAparatosElectronicos) {
+        this.cantAparatosElectronicos = cantAparatosElectronicos;
     }
 }
