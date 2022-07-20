@@ -134,7 +134,7 @@ public class SectorGeneralServicioImp implements SectorGeneralServicio {
         //modificar atributos
         sectorGeneral.setNomSectorGnral(sectorGeneralDTO.getNomSectorGnral());
         sectorGeneral.setValorKwh(sectorGeneralDTO.getValorKwh());
-        sectorGeneral.setFechaIngresoValorKwh(sectorGeneralDTO.getFechaIngresoValorKwh());
+        sectorGeneral.setFechaIngresoValorKwh(LocalDate.now());
         sectorGeneral.setMtrsCuadrados(sectorGeneralDTO.getMtrsCuadrados());
         sectorGeneral.setTotalConsumoW(sectorGeneralDTO.getTotalConsumoW());
         sectorGeneral.setTotalPesos(sectorGeneralDTO.getTotalPesos());
